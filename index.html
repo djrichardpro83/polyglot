@@ -271,6 +271,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
 .icfes-wordbank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;padding:12px;background:var(--surface);border-radius:var(--rsm);border:1px solid var(--border);}
 .icfes-wordchip{padding:5px 11px;border:1px solid var(--border2);border-radius:99px;font-size:11px;background:var(--bg2);}
 .icfes-wordchip b{color:var(--accent);margin-right:4px;}
+.ic-bubble{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;border:1.5px solid var(--border2);margin-right:8px;font-size:10px;font-weight:700;flex-shrink:0;color:var(--mist);}
+.mop.ok .ic-bubble{border-color:var(--it);background:var(--it);color:#06231A;}
+.mop.bad .ic-bubble{border-color:var(--pt);}
+.icfes-example{background:var(--adim);border:1px dashed var(--accent);border-radius:var(--rsm);padding:12px 14px;margin-bottom:16px;font-size:12px;}
+.icfes-example-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:6px;}
+.icfes-example .ic-bubble.on{border-color:var(--it);background:var(--it);color:#06231A;}
 
 @media(max-width:680px){.sidebar{display:none;}.main{margin-left:0;}.topbar,.ct{padding-left:14px;padding-right:14px;}.rphases,.srow,.qa-grid,.sc-grid,.vgrid,.mode-grid,.lgrid{grid-template-columns:1fr;}.rphases{flex-direction:column;}.icfes-match{grid-template-columns:1fr;}}
 </style></head><body>
@@ -561,73 +567,179 @@ en:{name:'Inglés',flag:'🇬🇧',acc:'#4F9CF9',sc:'en-US',
   icfes:{
     part1:{
       title:'Parte 1 · Vocabulario (léxico)',weight:'~11%',
-      instructions:'Relaciona cada descripción (1–5) con la palabra correcta (A–H). Una letra es el ejemplo (0), dos letras no se usan.',
-      example:{num:0,desc:'You use this to cut paper.',answer:'D'},
-      items:[
-        {num:1,desc:'A person who travels on a plane, train or bus.'},
-        {num:2,desc:'A place where you can borrow books for free.'},
-        {num:3,desc:'The money you get back after paying with a bigger bill.'},
-        {num:4,desc:'A document that shows how much you must pay for something.'},
-        {num:5,desc:'A container used to carry your clothes when you travel.'}
-      ],
-      options:[{l:'A',w:'Library'},{l:'B',w:'Passenger'},{l:'C',w:'Invoice'},{l:'D',w:'Scissors'},{l:'E',w:'Suitcase'},{l:'F',w:'Change'},{l:'G',w:'Bridge'},{l:'H',w:'Bakery'}],
-      answers:{1:'B',2:'A',3:'F',4:'C',5:'E'}
+      instructions:'Lea las descripciones de la columna izquierda (1–5). ¿Cuál palabra de la columna derecha (A–H) concuerda con cada descripción? Una opción se usa para el ejemplo (0). Sobran dos palabras más.',
+      sets:[
+        {example:{num:0,desc:'You use this to cut paper.',answer:'D'},
+         items:[
+           {num:1,desc:'A person who travels on a plane, train or bus.'},
+           {num:2,desc:'A place where you can borrow books for free.'},
+           {num:3,desc:'The money you get back after paying with a bigger bill.'},
+           {num:4,desc:'A document that shows how much you must pay for something.'},
+           {num:5,desc:'A container used to carry your clothes when you travel.'}
+         ],
+         options:[{l:'A',w:'Library'},{l:'B',w:'Passenger'},{l:'C',w:'Invoice'},{l:'D',w:'Scissors'},{l:'E',w:'Suitcase'},{l:'F',w:'Change'},{l:'G',w:'Bridge'},{l:'H',w:'Bakery'}],
+         answers:{1:'B',2:'A',3:'F',4:'C',5:'E'}},
+        {example:{num:0,desc:'A vehicle with two wheels that you pedal.',answer:'D'},
+         items:[
+           {num:1,desc:'A person who cooks food in a restaurant.'},
+           {num:2,desc:'A piece of paper that lets you enter a concert or a flight.'},
+           {num:3,desc:'The first meal of the day.'},
+           {num:4,desc:'A place where you keep your money and can also borrow it.'},
+           {num:5,desc:'Someone who teaches students in a school.'}
+         ],
+         options:[{l:'A',w:'Ticket'},{l:'B',w:'Chef'},{l:'C',w:'Breakfast'},{l:'D',w:'Bicycle'},{l:'E',w:'Bank'},{l:'F',w:'Teacher'},{l:'G',w:'Umbrella'},{l:'H',w:'Neighbor'}],
+         answers:{1:'B',2:'A',3:'C',4:'E',5:'F'}},
+        {example:{num:0,desc:'A round object used to play soccer.',answer:'D'},
+         items:[
+           {num:1,desc:'A tall building where many people live in separate apartments.'},
+           {num:2,desc:'The place where airplanes take off and land.'},
+           {num:3,desc:'A written message you send using the internet.'},
+           {num:4,desc:'Someone who visits a doctor because they are sick.'},
+           {num:5,desc:'A small book where you write notes or draw.'}
+         ],
+         options:[{l:'A',w:'Airport'},{l:'B',w:'Patient'},{l:'C',w:'Notebook'},{l:'D',w:'Ball'},{l:'E',w:'Apartment building'},{l:'F',w:'Email'},{l:'G',w:'Highway'},{l:'H',w:'Mirror'}],
+         answers:{1:'E',2:'A',3:'F',4:'B',5:'C'}}
+      ]
     },
     part2:{
       title:'Parte 2 · Avisos',weight:'~11%',
-      instructions:'Decide en qué lugar podrías ver cada aviso.',
-      items:[
-        {id:1,sign:'"PLEASE FASTEN YOUR SEATBELT"',options:['A. In a movie theater','B. On an airplane','C. In a supermarket'],answer:'B'},
-        {id:2,sign:'"SILENCE, PATIENTS RESTING"',options:['A. In a hospital','B. At a stadium','C. In a restaurant'],answer:'A'},
-        {id:3,sign:'"WET FLOOR — DO NOT WALK"',options:['A. Inside a book','B. In a supermarket','C. On a bus ticket'],answer:'B'}
+      instructions:'Lea cada aviso (6–8) y decida en qué lugar podría verse, de acuerdo con el ejemplo. Marque A, B o C.',
+      example:{sign:'"DO NOT FEED THE ANIMALS"',options:['A. In a zoo','B. In a kitchen','C. On a boat'],answer:'A'},
+      sets:[
+        {items:[
+          {id:1,sign:'"PLEASE FASTEN YOUR SEATBELT"',options:['A. In a movie theater','B. On an airplane','C. In a supermarket'],answer:'B'},
+          {id:2,sign:'"SILENCE, PATIENTS RESTING"',options:['A. In a hospital','B. At a stadium','C. In a restaurant'],answer:'A'},
+          {id:3,sign:'"WET FLOOR — DO NOT WALK"',options:['A. Inside a book','B. In a supermarket','C. On a bus ticket'],answer:'B'}
+        ]},
+        {items:[
+          {id:1,sign:'"NO SMOKING BEYOND THIS POINT"',options:['A. In a bakery','B. At a gas station','C. In a swimming pool'],answer:'B'},
+          {id:2,sign:'"PLEASE TURN OFF YOUR PHONE"',options:['A. In a cinema','B. At a beach','C. In a park'],answer:'A'},
+          {id:3,sign:'"KEEP OFF THE GRASS"',options:['A. In a park','B. In a kitchen','C. On an airplane'],answer:'A'}
+        ]},
+        {items:[
+          {id:1,sign:'"BAGGAGE CLAIM — LEVEL 1"',options:['A. In a library','B. At an airport','C. In a classroom'],answer:'B'},
+          {id:2,sign:'"OPEN 24 HOURS"',options:['A. On a store','B. On a shoe','C. On a passport'],answer:'A'},
+          {id:3,sign:'"CAUTION: HOT SURFACE"',options:['A. On a coffee cup','B. On a book cover','C. On a bus ticket'],answer:'A'}
+        ]}
       ]
     },
     part3:{
       title:'Parte 3 · Conversaciones cortas',weight:'~11%',
-      instructions:'Elige la respuesta que completa lógicamente la conversación.',
-      items:[
-        {id:1,line:'"Can you help me carry these boxes?"',options:['A. Sure, no problem.','B. It rained yesterday.','C. I like pizza.'],answer:'A'},
-        {id:2,line:'"I think I lost my passport at the airport."',options:['A. That sounds delicious.','B. Oh no, did you check your bag again?','C. See you tomorrow.'],answer:'B'},
-        {id:3,line:'"Would you like tea or coffee?"',options:['A. Coffee, please.','B. Yes, I do.','C. Next week.'],answer:'A'}
+      instructions:'Complete cada conversación (9–11) seleccionando la respuesta más lógica, de acuerdo con el ejemplo. Marque A, B o C.',
+      example:{line:'"What time does the train arrive at the station?"',options:['A. In two hours.','B. The second one.','C. Right there.'],answer:'A'},
+      sets:[
+        {items:[
+          {id:1,line:'"Can you help me carry these boxes?"',options:['A. Sure, no problem.','B. It rained yesterday.','C. I like pizza.'],answer:'A'},
+          {id:2,line:'"I think I lost my passport at the airport."',options:['A. That sounds delicious.','B. Oh no, did you check your bag again?','C. See you tomorrow.'],answer:'B'},
+          {id:3,line:'"Would you like tea or coffee?"',options:['A. Coffee, please.','B. Yes, I do.','C. Next week.'],answer:'A'}
+        ]},
+        {items:[
+          {id:1,line:'"Do you know what time it is?"',options:['A. It\'s almost 3 o\'clock.','B. I like tea.','C. She lives nearby.'],answer:'A'},
+          {id:2,line:'"I\'m sorry, I\'m late again."',options:['A. Don\'t worry, we just started.','B. That\'s a nice car.','C. See you at the beach.'],answer:'A'},
+          {id:3,line:'"Could you turn down the music, please?"',options:['A. Sure, sorry about that.','B. It\'s raining outside.','C. He works at a bank.'],answer:'A'}
+        ]},
+        {items:[
+          {id:1,line:'"Excuse me, is this seat taken?"',options:['A. No, please, go ahead.','B. It costs ten dollars.','C. I\'ll call you later.'],answer:'A'},
+          {id:2,line:'"I can\'t find my keys anywhere!"',options:['A. Did you check your jacket pocket?','B. The movie starts at eight.','C. It\'s a beautiful day.'],answer:'A'},
+          {id:3,line:'"Would you mind helping me with this bag?"',options:['A. Of course, let me get that.','B. I don\'t like coffee.','C. It\'s five kilometers away.'],answer:'A'}
+        ]}
       ]
     },
     part4:{
       title:'Parte 4 · Texto con espacios (gramática)',weight:'~18%',
-      instructions:'Lee el texto y elige la palabra correcta para cada espacio.',
-      text:'Many people around the world drink tea every day. Tea (1)___ from a plant called Camellia sinensis. It (2)___ first used in China thousands of years ago. Today, people (3)___ tea with milk, sugar, or lemon, depending on the country.',
-      blanks:[
-        {num:1,options:['A. come','B. comes','C. coming'],answer:'B'},
-        {num:2,options:['A. was','B. is','C. were'],answer:'A'},
-        {num:3,options:['A. drinks','B. drink','C. drinking'],answer:'B'}
+      instructions:'Lea el texto y seleccione la palabra correcta para cada espacio, de acuerdo con el ejemplo. Marque A, B o C.',
+      example:{text:'Water (0)___ at 100°C at sea level.',options:['A. boil','B. boils','C. boiling'],answer:'B'},
+      sets:[
+        {text:'Many people around the world drink tea every day. Tea (1)___ from a plant called Camellia sinensis. It (2)___ first used in China thousands of years ago. Today, people (3)___ tea with milk, sugar, or lemon, depending on the country.',
+         blanks:[
+           {num:1,options:['A. come','B. comes','C. coming'],answer:'B'},
+           {num:2,options:['A. was','B. is','C. were'],answer:'A'},
+           {num:3,options:['A. drinks','B. drink','C. drinking'],answer:'B'}
+         ]},
+        {text:'Sleep is very important for the human body. Most adults (1)___ between seven and nine hours of sleep every night. When people don\'t get enough sleep, they (2)___ often feel tired and find it hard to concentrate. Doctors recommend going to bed at the same time each night (3)___ order to build a healthy routine.',
+         blanks:[
+           {num:1,options:['A. need','B. needs','C. needing'],answer:'A'},
+           {num:2,options:['A. can','B. is','C. does'],answer:'A'},
+           {num:3,options:['A. in','B. on','C. at'],answer:'A'}
+         ]},
+        {text:'Last summer, my family and I (1)___ to Cartagena for a short vacation. The weather was hot, so we (2)___ a lot of time at the beach. Before we left, we (3)___ some souvenirs for our friends back home.',
+         blanks:[
+           {num:1,options:['A. travel','B. traveled','C. traveling'],answer:'B'},
+           {num:2,options:['A. spend','B. spent','C. spending'],answer:'B'},
+           {num:3,options:['A. buy','B. bought','C. buying'],answer:'B'}
+         ]}
       ]
     },
     part5:{
       title:'Parte 5 · Comprensión de lectura (literal)',weight:'~16%',
-      instructions:'Lee el texto y responde con base en la información literal (no infieras, busca la paráfrasis correcta).',
-      passage:'Small local markets are becoming popular again in many cities. Unlike big supermarkets, these markets sell fresh fruit and vegetables directly from local farmers. Prices are often lower, and customers can talk to the people who grow their food. Many families now prefer shopping at these markets on weekends instead of going to large stores.',
-      items:[
-        {id:1,q:'According to the text, what do customers get at local markets that they usually do NOT get at supermarkets?',options:['A. Lower prices only','B. The chance to talk to the farmers','C. Free delivery'],answer:'B'},
-        {id:2,q:'When do many families prefer to shop at these markets?',options:['A. Every morning','B. Only in summer','C. On weekends'],answer:'C'}
+      instructions:'Lea el texto y responda con base en la información literal (no infiera, busque la paráfrasis correcta), de acuerdo con el ejemplo. Marque A, B o C.',
+      example:{q:'According to the sentence "The store closes at 9 PM on weekdays but stays open until midnight on weekends," when does the store close on a Saturday?',options:['A. 9 PM','B. Midnight','C. It is closed'],answer:'B'},
+      sets:[
+        {passage:'Small local markets are becoming popular again in many cities. Unlike big supermarkets, these markets sell fresh fruit and vegetables directly from local farmers. Prices are often lower, and customers can talk to the people who grow their food. Many families now prefer shopping at these markets on weekends instead of going to large stores.',
+         items:[
+           {id:1,q:'According to the text, what do customers get at local markets that they usually do NOT get at supermarkets?',options:['A. Lower prices only','B. The chance to talk to the farmers','C. Free delivery'],answer:'B'},
+           {id:2,q:'When do many families prefer to shop at these markets?',options:['A. Every morning','B. Only in summer','C. On weekends'],answer:'C'}
+         ]},
+        {passage:'Many companies now allow employees to work from home a few days a week. Studies show that employees who work from home often feel less stressed and save time by not commuting. However, some workers say they miss talking to their coworkers in person and find it harder to separate work from personal life.',
+         items:[
+           {id:1,q:'According to the text, what is one benefit workers get from working at home?',options:['A. They see their coworkers more.','B. They save time on commuting.','C. They receive a higher salary.'],answer:'B'},
+           {id:2,q:'According to the text, what is a difficulty some workers mention?',options:['A. Finding parking near the office.','B. Separating work from personal life.','C. Learning to use new software.'],answer:'B'}
+         ]},
+        {passage:'A new library opened in the city center last month. It has more than ten thousand books, free wifi, and a quiet reading room for students. The library is open every day except Sunday, and children under twelve can join a special reading program on Saturdays.',
+         items:[
+           {id:1,q:'According to the text, when is the library closed?',options:['A. Saturday','B. Sunday','C. It is never closed'],answer:'B'},
+           {id:2,q:'According to the text, who can join the special reading program?',options:['A. Only adults','B. Children under twelve','C. Library employees only'],answer:'B'}
+         ]}
       ]
     },
     part6:{
       title:'Parte 6 · Comprensión de lectura (inferencial)',weight:'~11%',
-      instructions:'Lee el texto y responde sobre la intención del autor o ideas generales (no están escritas literalmente, hay que inferirlas).',
-      passage:'When Maria moved to a new city for her job, she knew no one. At first, she stayed home every evening, feeling anxious about meeting strangers. A coworker invited her to a weekly running club. She almost said no, but decided to try it once. Six months later, running club was the highlight of her week, and she had made several close friends.',
-      items:[
-        {id:1,q:'What is the main idea the author wants to communicate?',options:['A. Running is the healthiest sport.','B. Stepping outside your comfort zone can lead to unexpected rewards.','C. Moving to a new city is always difficult.'],answer:'B'},
-        {id:2,q:'What can be inferred about Maria at the beginning of the story?',options:['A. She was confident and outgoing.','B. She was nervous about socializing.','C. She disliked her new job.'],answer:'B'}
+      instructions:'Lea el texto y responda sobre la intención del autor o ideas generales (no están escritas literalmente, hay que inferirlas), de acuerdo con el ejemplo. Marque A, B o C.',
+      example:{q:'If someone says "I couldn\'t sleep at all last night because I was too excited about my trip," what can be inferred about how they feel?',options:['A. Bored','B. Excited','C. Angry'],answer:'B'},
+      sets:[
+        {passage:'When Maria moved to a new city for her job, she knew no one. At first, she stayed home every evening, feeling anxious about meeting strangers. A coworker invited her to a weekly running club. She almost said no, but decided to try it once. Six months later, running club was the highlight of her week, and she had made several close friends.',
+         items:[
+           {id:1,q:'What is the main idea the author wants to communicate?',options:['A. Running is the healthiest sport.','B. Stepping outside your comfort zone can lead to unexpected rewards.','C. Moving to a new city is always difficult.'],answer:'B'},
+           {id:2,q:'What can be inferred about Maria at the beginning of the story?',options:['A. She was confident and outgoing.','B. She was nervous about socializing.','C. She disliked her new job.'],answer:'B'}
+         ]},
+        {passage:'Carlos had always dreamed of opening his own bakery, but he was afraid to leave his stable job. After years of saving money and taking weekend baking classes, he finally quit his job and opened a small shop. The first few months were difficult, but slowly more customers began to arrive, and today his bakery is one of the most popular in the neighborhood.',
+         items:[
+           {id:1,q:'What can be inferred about Carlos\'s personality?',options:['A. He gave up easily when things were difficult.','B. He was persistent and willing to take risks for his goal.','C. He never wanted to work for himself.'],answer:'B'},
+           {id:2,q:'What is the main message of this text?',options:['A. Baking is more profitable than other jobs.','B. Following a long-term goal can pay off despite early struggles.','C. It is impossible to succeed without a stable job.'],answer:'B'}
+         ]},
+        {passage:'Ana\'s grandmother always said, "A house is not a home without a garden." Growing up, Ana thought this was just an old saying. Years later, after moving into her first apartment with a small balcony, she planted a few pots of herbs and flowers. She was surprised at how much calmer she felt every time she watered her plants after a long day at work.',
+         items:[
+           {id:1,q:'What does the text suggest about Ana\'s view of her grandmother\'s saying?',options:['A. She always agreed with it completely.','B. She only understood its meaning later in life.','C. She thought it was completely wrong.'],answer:'B'},
+           {id:2,q:'What can be inferred about how gardening affects Ana?',options:['A. It makes her feel more relaxed.','B. It makes her feel more tired.','C. It has no effect on her mood.'],answer:'A'}
+         ]}
       ]
     },
     part7:{
       title:'Parte 7 · Texto con espacios (gramática y léxico avanzado)',weight:'~22%',
-      instructions:'Esta es la parte con más peso del examen. Lee el texto y elige la opción que mejor completa cada espacio — aquí sí hay 4 opciones (A–D).',
-      text:'Coffee is one of the most traded products in the world. For (1)___ than a thousand years, people have grown and enjoyed it. Historians believe coffee (2)___ first discovered in Ethiopia, (3)___ a goat herder noticed his goats became energetic after eating certain berries. Since (4)___, coffee has spread across almost every country on Earth.',
-      blanks:[
-        {num:1,options:['A. more','B. most','C. much','D. many'],answer:'A'},
-        {num:2,options:['A. is','B. was','C. were','D. has been'],answer:'B'},
-        {num:3,options:['A. when','B. which','C. who','D. what'],answer:'A'},
-        {num:4,options:['A. it','B. this','C. then','D. there'],answer:'C'}
+      instructions:'Esta es la parte con más peso del examen. Lea el texto y seleccione la opción que mejor completa cada espacio, de acuerdo con el ejemplo. Marque A, B, C o D.',
+      example:{text:'Many students (0)___ English as a second language around the world.',options:['A. study','B. studies','C. studying','D. studied'],answer:'A'},
+      sets:[
+        {text:'Coffee is one of the most traded products in the world. For (1)___ than a thousand years, people have grown and enjoyed it. Historians believe coffee (2)___ first discovered in Ethiopia, (3)___ a goat herder noticed his goats became energetic after eating certain berries. Since (4)___, coffee has spread across almost every country on Earth.',
+         blanks:[
+           {num:1,options:['A. more','B. most','C. much','D. many'],answer:'A'},
+           {num:2,options:['A. is','B. was','C. were','D. has been'],answer:'B'},
+           {num:3,options:['A. when','B. which','C. who','D. what'],answer:'A'},
+           {num:4,options:['A. it','B. this','C. then','D. there'],answer:'C'}
+         ]},
+        {text:'Renewable energy sources, such as solar and wind power, are becoming more common around the world. Unlike fossil fuels, these sources (1)___ not produce harmful gases when generating electricity. Many governments (2)___ investing heavily in renewable projects over the past decade, hoping to reduce pollution. Experts believe that (3)___ current trends continue, renewable energy (4)___ supply a large percentage of global electricity within the next twenty years.',
+         blanks:[
+           {num:1,options:['A. does','B. do','C. is','D. are'],answer:'B'},
+           {num:2,options:['A. have been','B. has been','C. was','D. is'],answer:'A'},
+           {num:3,options:['A. if','B. unless','C. although','D. because'],answer:'A'},
+           {num:4,options:['A. will','B. would','C. can','D. must'],answer:'A'}
+         ]},
+        {text:'The printing press, invented by Johannes Gutenberg in the 15th century, (1)___ one of the most important inventions in human history. Before its invention, books (2)___ copied by hand, which made them extremely expensive and rare. After the printing press (3)___ introduced, information could spread much faster across Europe. Some historians argue that (4)___ this invention, the Renaissance might have developed much more slowly.',
+         blanks:[
+           {num:1,options:['A. is considered','B. considers','C. considered','D. was considering'],answer:'A'},
+           {num:2,options:['A. were','B. was','C. are','D. have been'],answer:'A'},
+           {num:3,options:['A. was','B. is','C. has been','D. were'],answer:'A'},
+           {num:4,options:['A. without','B. with','C. despite','D. through'],answer:'A'}
+         ]}
       ]
     }
   }
@@ -902,7 +1014,7 @@ Cuando practiques en <strong>${l.name}</strong>, respondo en el escenario elegid
 }
 function renderScenes(){
   const l=LD[LANG];
-  const mk=(s,sel)=>`<button class="sc-btn${sel?' sel':''}" onclick="selSc(this,'${s.n.replace(/'/g,"\\'")}','${s.d.replace(/'/g,"\\'")}')"><span class="sc-e">${s.e}</span>${s.n}</button>`;
+  const mk=(s,sel)=>`<button class="sc-btn${sel?' sel':''}" onclick="selSc(this,'${s.n.replace(/'/g,"\'")}','${s.d.replace(/'/g,"\'")}')"><span class="sc-e">${s.e}</span>${s.n}</button>`;
   document.getElementById('scGS').innerHTML=l.sc.social.map((s,i)=>mk(s,i===0)).join('');
   document.getElementById('scGB').innerHTML=l.sc.biz.map(s=>mk(s,false)).join('');
   document.getElementById('scDesc').innerHTML=`<strong>${l.sc.social[0].e} ${l.sc.social[0].n}:</strong> ${l.sc.social[0].d}`;
@@ -1241,7 +1353,7 @@ function renderMC(q,el){
   const opts=shuf([q.d,...wrong]);
   el.innerHTML=`<div class="qtag qmc">✅ Opción Múltiple</div>
     <div class="qq">¿Cuál es el significado de <strong style="color:var(--accent)">"${q.t}"</strong>?</div>
-    <div class="mco">${opts.map(o=>`<button class="mop" onclick="chkMC(this,'${o.replace(/'/g,"\\'")}','${q.d.replace(/'/g,"\\'")}','${q.t}')">${o}</button>`).join('')}</div>`;
+    <div class="mco">${opts.map(o=>`<button class="mop" onclick="chkMC(this,'${o.replace(/'/g,"\'")}','${q.d.replace(/'/g,"\'")}','${q.t}')">${o}</button>`).join('')}</div>`;
 }
 function chkMC(btn,chosen,correct,term){
   if(qAns)return;qAns=true;
@@ -1257,7 +1369,7 @@ function renderFill(q,el){
   el.innerHTML=`<div class="qtag qfi">✍️ Completar frase</div>
     <div class="qq">Completa con el término correcto:</div>
     <div style="font-size:14px;font-weight:500;line-height:1.7;margin-bottom:12px">${sent}</div>
-    <input class="fi" id="fiIn" placeholder="Escribe el término…" onkeydown="if(event.key==='Enter')chkFill('${q.t.replace(/'/g,"\\'")}')"/>`;
+    <input class="fi" id="fiIn" placeholder="Escribe el término…" onkeydown="if(event.key==='Enter')chkFill('${q.t.replace(/'/g,"\'")}')"/>`;
   setTimeout(()=>document.getElementById('fiIn')?.focus(),50);
 }
 function chkFill(correct){
@@ -1275,7 +1387,7 @@ function showQFb(ok,msg){
 function renderQAct(answered){
   const el=document.getElementById('qAct');const isLast=qIdx>=qQs.length-1;
   if(!answered&&qQs[qIdx]?.qt==='flash')el.innerHTML=`<div class="qa2"><button class="btn btn-gh btn-sm" onclick="flipFC()">Voltear</button><button class="btn btn-acc btn-sm" onclick="advQ()">Lo sé ✓</button></div>`;
-  else if(!answered&&qQs[qIdx]?.qt==='fill')el.innerHTML=`<div class="qa2"><button class="btn btn-acc btn-sm" onclick="chkFill('${qQs[qIdx].t.replace(/'/g,"\\'")}')">Verificar →</button></div>`;
+  else if(!answered&&qQs[qIdx]?.qt==='fill')el.innerHTML=`<div class="qa2"><button class="btn btn-acc btn-sm" onclick="chkFill('${qQs[qIdx].t.replace(/'/g,"\'")}')">Verificar →</button></div>`;
   else if(answered)el.innerHTML=isLast?`<button class="btn btn-acc" style="width:100%;justify-content:center" onclick="finQ()">Ver resultados 🏆</button>`:`<div class="qa2"><button class="btn btn-acc btn-sm" onclick="advQ()">Siguiente →</button></div>`;
   else el.innerHTML='';
 }
@@ -1331,6 +1443,27 @@ function showRContent(i){
 
 /* ═══ ICFES SABER 11 ═══ */
 const ICFES_PARTS=[1,2,3,4,5,6,7];
+let icfesRound={1:0,2:0,3:0,4:0,5:0,6:0,7:0};
+function curIcfesSet(partNum){
+  const data=LD.en.icfes['part'+partNum];
+  return data.sets[icfesRound[partNum]%data.sets.length];
+}
+function bubbleOpt(o,onclickStr){
+  const letter=o[0],text=o.slice(3);
+  return `<button class="mop" onclick="${onclickStr}"><span class="ic-bubble">${letter}</span>${text}</button>`;
+}
+function bubbleCircled(o){
+  const map={A:'Ⓐ',B:'Ⓑ',C:'Ⓒ',D:'Ⓓ'};
+  return map[o[0]]+' '+o.slice(3);
+}
+function exampleBlock(label,bodyHtml){
+  return `<div class="icfes-example"><div class="icfes-example-tag">Ejemplo (0)</div>${bodyHtml}</div>`;
+}
+function nextIcfesRound(partNum){
+  const data=LD.en.icfes['part'+partNum];
+  icfesRound[partNum]=(icfesRound[partNum]+1)%data.sets.length;
+  renderIcfes(partNum);
+}
 function renderIcfesTabs(active){
   document.getElementById('icfesTabs').innerHTML=ICFES_PARTS.map(p=>`<button class="tab${p===active?' on':''}" onclick="renderIcfes(${p})">Parte ${p}</button>`).join('');
 }
@@ -1341,18 +1474,20 @@ function renderIcfes(partNum){
   if(LANG!=='en'){warn.style.display='block';body.style.display='none';return;}
   warn.style.display='none';body.style.display='block';
   const data=LD.en.icfes['part'+partNum];
+  const roundNum=(icfesRound[partNum]%data.sets.length)+1;
   document.getElementById('icfesPartTitle').textContent=data.title;
-  document.getElementById('icfesPartWeight').textContent='Peso aproximado en el examen: '+data.weight;
+  document.getElementById('icfesPartWeight').textContent=`Peso aproximado en el examen: ${data.weight} · Ronda ${roundNum} de ${data.sets.length}`;
   document.getElementById('icfesInstr').textContent=data.instructions;
+  const cur=curIcfesSet(partNum);
   const c=document.getElementById('icfesContent');
-  if(partNum===1)renderIcfesPart1(data,c);
-  else if(partNum===2||partNum===3)renderIcfesABC(data,c,partNum);
-  else if(partNum===4||partNum===7)renderIcfesCloze(data,c,partNum);
-  else renderIcfesReading(data,c,partNum);
+  if(partNum===1)renderIcfesPart1(cur,c);
+  else if(partNum===2||partNum===3)renderIcfesABC(cur,c,partNum);
+  else if(partNum===4||partNum===7)renderIcfesCloze(cur,c,partNum);
+  else renderIcfesReading(cur,c,partNum);
 }
 function renderIcfesPart1(data,c){
   const bank=data.options.map(o=>`<span class="icfes-wordchip"><b>${o.l}</b>${o.w}</span>`).join('');
-  const ex=`<div class="icfes-desc"><b>0.</b><span>${data.example.desc} → <span class="icfes-blankbadge">${data.example.answer}</span> <em style="color:var(--mist);font-size:11px">(ejemplo, no cuenta)</em></span></div>`;
+  const ex=exampleBlock('',`<div class="icfes-desc" style="margin:0;"><span>${data.example.desc}</span> → <span class="ic-bubble on">${data.example.answer}</span></div>`);
   const rows=data.items.map(it=>`
     <div class="icfes-desc"><b>${it.num}.</b><span style="flex:1">${it.desc}</span>
       <select class="icfes-matchsel" id="icP1-${it.num}">
@@ -1361,12 +1496,15 @@ function renderIcfesPart1(data,c){
       </select>
     </div>`).join('');
   c.innerHTML=`<div class="icfes-wordbank">${bank}</div>${ex}${rows}
-    <button class="btn btn-acc btn-sm" style="margin-top:10px" onclick="checkIcfesPart1()">Verificar →</button>
+    <div style="display:flex;gap:8px;margin-top:10px;">
+      <button class="btn btn-acc btn-sm" onclick="checkIcfesPart1()">Verificar →</button>
+      <button class="btn btn-gh btn-sm" onclick="nextIcfesRound(1)">🔄 Otra ronda</button>
+    </div>
     <div id="icP1Result" style="margin-top:10px"></div>
     <div id="icP1Fb"></div>`;
 }
 function checkIcfesPart1(){
-  const data=LD.en.icfes.part1;let correct=0;
+  const data=curIcfesSet(1);let correct=0;
   data.items.forEach(it=>{
     const sel=document.getElementById('icP1-'+it.num);
     const ok=sel.value===data.answers[it.num];
@@ -1380,40 +1518,55 @@ function checkIcfesPart1(){
   getIcfesFeedback(`Ejercicio de vocabulario ICFES (emparejar descripciones con palabras). ${detail}`,'icP1Fb');
 }
 function renderIcfesABC(data,c,partNum){
-  c.innerHTML=data.items.map((it,idx)=>`
+  const partData=LD.en.icfes['part'+partNum];
+  const ex=partData.example;
+  const exBody=partNum===2?ex.sign:ex.line;
+  const exOpts=ex.options.map(o=>{
+    const letter=o[0],text=o.slice(3),isAns=letter===ex.answer;
+    return `<div style="display:flex;align-items:center;margin-top:4px;"><span class="ic-bubble${isAns?' on':''}">${letter}</span>${text}${isAns?' ✅':''}</div>`;
+  }).join('');
+  const exHtml=exampleBlock('',`<div style="font-weight:600;margin-bottom:6px;">${exBody}</div>${exOpts}`);
+  c.innerHTML=exHtml+data.items.map((it,idx)=>`
     <div class="icfes-qblock">
       <div style="font-size:13px;font-weight:600;margin-bottom:10px">${partNum===2?it.sign:it.line}</div>
       <div class="mco" id="icQ-${partNum}-${idx}">
-        ${it.options.map(o=>`<button class="mop" onclick="checkIcfesABC(${partNum},${idx},this,'${o[0]}')">${o}</button>`).join('')}
+        ${it.options.map(o=>bubbleOpt(o,`checkIcfesABC(${partNum},${idx},this,'${o[0]}')`)).join('')}
       </div>
       <div id="icFb-${partNum}-${idx}"></div>
-    </div>`).join('');
+    </div>`).join('')+`<button class="btn btn-gh btn-sm" onclick="nextIcfesRound(${partNum})">🔄 Otra ronda</button>`;
 }
 function checkIcfesABC(partNum,idx,btn,chosenLetter){
-  const data=LD.en.icfes['part'+partNum];const it=data.items[idx];
+  const data=curIcfesSet(partNum);const it=data.items[idx];
   const wrap=document.getElementById('icQ-'+partNum+'-'+idx);
   if(wrap.querySelectorAll('.mop')[0].disabled)return;
   wrap.querySelectorAll('.mop').forEach(b=>b.disabled=true);
   const ok=chosenLetter===it.answer;
   btn.classList.add(ok?'ok':'bad');
-  if(!ok)wrap.querySelectorAll('.mop').forEach(b=>{if(b.textContent.trim().startsWith(it.answer+'.'))b.classList.add('ok');});
+  if(!ok)wrap.querySelectorAll('.mop').forEach(b=>{if(b.querySelector('.ic-bubble').textContent===it.answer)b.classList.add('ok');});
   addXp(ok?5:1,'escrito');
   const src=partNum===2?it.sign:it.line;
   getIcfesFeedback(`Pregunta: "${src}". Opciones: ${it.options.join(' | ')}. Respuesta correcta: ${it.answer}. El estudiante eligió: ${chosenLetter}.`,'icFb-'+partNum+'-'+idx);
 }
 function renderIcfesCloze(data,c,partNum){
+  const partData=LD.en.icfes['part'+partNum];
+  const ex=partData.example;
+  const exText=ex.text.replace('(0)___',`<span class="ic-bubble on" style="display:inline-flex;">${ex.answer}</span>`);
+  const exHtml=exampleBlock('',`${exText}<div style="margin-top:6px;font-size:11px;color:var(--mist)">${ex.options.map(o=>o[0]===ex.answer?`<b style="color:var(--it)">${o} ✅</b>`:o).join(' &nbsp; ')}</div>`);
   let text=data.text;
   data.blanks.forEach(b=>{
-    const sel=`<select class="icfes-matchsel" style="display:inline-block;width:auto;min-width:56px" id="icBlank-${partNum}-${b.num}"><option value="">(${b.num})</option>${b.options.map(o=>`<option value="${o[0]}">${o}</option>`).join('')}</select>`;
+    const sel=`<select class="icfes-matchsel" style="display:inline-block;width:auto;min-width:64px" id="icBlank-${partNum}-${b.num}"><option value="">(${b.num})</option>${b.options.map(o=>`<option value="${o[0]}">${bubbleCircled(o)}</option>`).join('')}</select>`;
     text=text.split('('+b.num+')___').join(sel);
   });
-  c.innerHTML=`<div class="icfes-clozetext">${text}</div>
-    <button class="btn btn-acc btn-sm" onclick="checkIcfesCloze(${partNum})">Verificar →</button>
+  c.innerHTML=exHtml+`<div class="icfes-clozetext">${text}</div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-acc btn-sm" onclick="checkIcfesCloze(${partNum})">Verificar →</button>
+      <button class="btn btn-gh btn-sm" onclick="nextIcfesRound(${partNum})">🔄 Otra ronda</button>
+    </div>
     <div id="icClozeResult-${partNum}" style="margin-top:10px"></div>
     <div id="icClozeFb-${partNum}"></div>`;
 }
 function checkIcfesCloze(partNum){
-  const data=LD.en.icfes['part'+partNum];let correct=0;
+  const data=curIcfesSet(partNum);let correct=0;
   data.blanks.forEach(b=>{
     const sel=document.getElementById('icBlank-'+partNum+'-'+b.num);
     const ok=sel.value===b.answer;
@@ -1427,24 +1580,31 @@ function checkIcfesCloze(partNum){
   getIcfesFeedback(`Texto cloze ICFES: "${data.text.replace(/\(\d\)___/g,'____')}". ${detail}`,'icClozeFb-'+partNum);
 }
 function renderIcfesReading(data,c,partNum){
-  c.innerHTML=`<div class="icfes-passage">${data.passage}</div>`+
+  const partData=LD.en.icfes['part'+partNum];
+  const ex=partData.example;
+  const exOpts=ex.options.map(o=>{
+    const letter=o[0],text=o.slice(3),isAns=letter===ex.answer;
+    return `<div style="display:flex;align-items:center;margin-top:4px;"><span class="ic-bubble${isAns?' on':''}">${letter}</span>${text}${isAns?' ✅':''}</div>`;
+  }).join('');
+  const exHtml=exampleBlock('',`<div style="font-weight:600;margin-bottom:6px;">${ex.q}</div>${exOpts}`);
+  c.innerHTML=`<div class="icfes-passage">${data.passage}</div>`+exHtml+
     data.items.map((it,idx)=>`
     <div class="icfes-qblock">
       <div style="font-size:12.5px;font-weight:600;margin-bottom:10px">${it.q}</div>
       <div class="mco" id="icRQ-${partNum}-${idx}">
-        ${it.options.map(o=>`<button class="mop" onclick="checkIcfesReading(${partNum},${idx},this,'${o[0]}')">${o}</button>`).join('')}
+        ${it.options.map(o=>bubbleOpt(o,`checkIcfesReading(${partNum},${idx},this,'${o[0]}')`)).join('')}
       </div>
       <div id="icRFb-${partNum}-${idx}"></div>
-    </div>`).join('');
+    </div>`).join('')+`<button class="btn btn-gh btn-sm" onclick="nextIcfesRound(${partNum})">🔄 Otra ronda</button>`;
 }
 function checkIcfesReading(partNum,idx,btn,chosenLetter){
-  const data=LD.en.icfes['part'+partNum];const it=data.items[idx];
+  const data=curIcfesSet(partNum);const it=data.items[idx];
   const wrap=document.getElementById('icRQ-'+partNum+'-'+idx);
   if(wrap.querySelectorAll('.mop')[0].disabled)return;
   wrap.querySelectorAll('.mop').forEach(b=>b.disabled=true);
   const ok=chosenLetter===it.answer;
   btn.classList.add(ok?'ok':'bad');
-  if(!ok)wrap.querySelectorAll('.mop').forEach(b=>{if(b.textContent.trim().startsWith(it.answer+'.'))b.classList.add('ok');});
+  if(!ok)wrap.querySelectorAll('.mop').forEach(b=>{if(b.querySelector('.ic-bubble').textContent===it.answer)b.classList.add('ok');});
   addXp(ok?5:1,'escrito');
   getIcfesFeedback(`Texto: "${data.passage}" Pregunta: "${it.q}" Opciones: ${it.options.join(' | ')}. Respuesta correcta: ${it.answer}. El estudiante eligió: ${chosenLetter}.`,'icRFb-'+partNum+'-'+idx);
 }

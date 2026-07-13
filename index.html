@@ -698,6 +698,7 @@ function addXp(amount,bucket){
   if(bucket&&mix[bucket]!==undefined)mix[bucket]++;
   const after=Math.floor(xp/100);
   const hxp=document.getElementById('hXP');if(hxp)hxp.textContent=xp;
+  const xl=document.getElementById('xpLbl');if(xl)xl.textContent=xp+' XP ganado';
   renderMix();
   saveProgress();
   if(after>before)showLvlToast();
@@ -848,6 +849,7 @@ function launch(){
   document.getElementById('heroSub').textContent=`Nivel: ${l.lvls[LVL]} · Tutor IA listo para ayudarte.`;
   touchStreak();
   document.getElementById('hXP').textContent=xp;
+  document.getElementById('xpLbl').textContent=xp+' XP ganado';
   document.getElementById('hStr').textContent=streak;
   renderMix();
   initChat();renderVocab();renderPron();renderGram();renderRoad();renderDTypes();

@@ -869,6 +869,8 @@ function pg(name){
   if(nav)nav.classList.add('on');
   const titles={home:'Inicio',chat:'Tutor IA',vocab:'Vocabulario',pron:'Pronunciación',gram:'Gramática',quiz:'Quiz',road:'Plan 90 Días',icfes:'ICFES Saber 11'};
   document.getElementById('ptitle').textContent=titles[name]||name;
+  const main=document.querySelector('.main');if(main)main.scrollTop=0;
+  window.scrollTo(0,0);
 }
 
 /* ═══ LANG MODAL ═══ */

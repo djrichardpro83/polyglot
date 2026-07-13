@@ -1302,15 +1302,27 @@ function renderRoad(){
   showRContent(0);
 }
 function showRTab(i,btn){document.querySelectorAll('#rTabs .tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');showRContent(i);}
+function startWeekPractice(phaseIdx,weekIdx){
+  const l=LD[LANG];
+  const w=l.road[phaseIdx].weeks[weekIdx];
+  scenario=w.t;
+  scenDesc='Semana '+w.w+': '+w.tp.join(', ');
+  pg('chat');
+  document.querySelectorAll('.sc-btn').forEach(b=>b.classList.remove('sel'));
+  const sd=document.getElementById('scDesc');if(sd)sd.innerHTML=`<strong>🎯 ${w.t}:</strong> ${scenDesc}`;
+  chatHist=[];const m=document.getElementById('msgs');if(m)m.innerHTML='';
+  botMsg(`🚀 ¡Vamos con la <strong>Semana ${w.w}: ${w.t}</strong>!<br><br>Esta semana toca:<br>${w.tp.map(t=>'• '+t).join('<br>')}<br><br>Empecemos — escribe algo relacionado a estos temas, o pídeme que te guíe paso a paso. ¡Sin miedo! 💪`);
+}
 function showRContent(i){
   const l=LD[LANG];const p=l.road[i];
   document.getElementById('rContent').innerHTML=`
     <div class="card">
       <div class="ch"><span class="ci">🎯</span><div><div class="ct2">${p.n}</div><div class="cs">${p.r} · ${l.name}</div></div></div>
-      ${p.weeks.map(w=>`
+      ${p.weeks.map((w,wi)=>`
         <div class="wcard">
           <div class="wch"><span class="wcn">SEMANA ${w.w}</span><strong class="wct">${w.t}</strong></div>
           <div class="wcb">${w.tp.map(t=>`<div class="wct2"><span class="wcd">→</span><span>${t}</span></div>`).join('')}</div>
+          <button class="btn btn-acc btn-sm" style="margin-top:10px" onclick="startWeekPractice(${i},${wi})">🚀 Empezar a practicar esta semana</button>
         </div>`).join('')}
     </div>`;
 }

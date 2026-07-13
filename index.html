@@ -325,10 +325,24 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
     <div style="display:flex;gap:9px"><button class="btn btn-gh" onclick="goS(2)">← Atrás</button><button class="btn btn-acc" onclick="step3()">Continuar →</button></div>
   </div>
   <div class="step" id="s4">
+    <div class="sh">Tu perfil de aprendizaje 🎯</div>
+    <div class="sp">Esto ajusta el tono y el enfoque del tutor — podés cambiarlo después.</div>
+    <label>¿Para quién es esta cuenta?</label>
+    <div class="row2" id="ageGrid" style="margin-bottom:14px">
+      <div class="mcard sel" id="age-adolescente" onclick="selAge('adolescente')" style="text-align:center"><div class="mt">🎒 Adolescente</div><div class="md">13-17 años</div></div>
+      <div class="mcard" id="age-adulto" onclick="selAge('adulto')" style="text-align:center"><div class="mt">💼 Adulto</div><div class="md">18+</div></div>
+    </div>
+    <label>¿Para qué quieres aprender? (elegí una o más)</label>
+    <div class="row2" id="purposeGrid" style="margin-bottom:14px"></div>
+    <label>¿Cuánto tiempo podés estudiar por sesión?</label>
+    <div class="row3" id="timeGrid" style="margin-bottom:6px"></div>
+    <div style="display:flex;gap:9px;margin-top:14px"><button class="btn btn-gh" onclick="goS(3)">← Atrás</button><button class="btn btn-acc" id="s4ContinueBtn" onclick="step4()">Continuar →</button></div>
+  </div>
+  <div class="step" id="s5">
     <div class="sh">¿Cómo quieres empezar hoy? 🎯</div>
     <div class="sp">Elige tu modo. Puedes cambiarlo en cualquier momento dentro de la app.</div>
     <div class="mode-grid" id="modeGrid"></div>
-    <div style="display:flex;gap:9px"><button class="btn btn-gh" onclick="goS(3)">← Atrás</button><button class="btn btn-acc" onclick="launch()">¡Empezar! 🚀</button></div>
+    <div style="display:flex;gap:9px"><button class="btn btn-gh" onclick="goS(4)">← Atrás</button><button class="btn btn-acc" onclick="launch()">¡Empezar! 🚀</button></div>
   </div>
 </div>
 </div>
@@ -375,6 +389,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
       <span id="provBadge" style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--adim);color:var(--accent)">Claude</span>
     </div>
     <button class="btn btn-gh btn-sm" style="width:100%;justify-content:center" onclick="resetKey()">🔑 Cambiar API Key</button>
+    <button class="btn btn-gh btn-sm" style="width:100%;justify-content:center;margin-top:6px" onclick="editProfile()">🎯 Editar perfil (edad/propósito)</button>
     <button class="btn btn-gh btn-sm" style="width:100%;justify-content:center;margin-top:6px" onclick="switchProfile()">👤 Cambiar de perfil</button>
     </div>
   </nav>
@@ -775,6 +790,7 @@ Sé preciso y breve (máx 5 líneas). No inventes reglas gramaticales que no apl
 /* ═══ STATE ═══ */
 let KEY='',PROVIDER='claude',LANG='en',LVL=0,MODE='chat',chatMode='conversation';
 let PROFILE='',mix={hablado:0,escrito:0,gramatica:0},streak=1,lastActive='';
+let ageGroup='adolescente',purposes=[],studyTime=20;
 let scenario='',scenDesc='';
 let chatHist=[],xp=0;
 
@@ -782,7 +798,7 @@ let chatHist=[],xp=0;
 function progKey(name){return 'pg_progress_'+name.trim().toLowerCase();}
 function saveProgress(){
   if(!PROFILE)return;
-  localStorage.setItem(progKey(PROFILE),JSON.stringify({lang:LANG,lvl:LVL,xp,mix,streak,lastActive}));
+  localStorage.setItem(progKey(PROFILE),JSON.stringify({lang:LANG,lvl:LVL,xp,mix,streak,lastActive,ageGroup,purposes,studyTime}));
   localStorage.setItem('pg_last_profile',PROFILE);
 }
 function loadProgress(name){
@@ -792,6 +808,7 @@ function loadProgress(name){
     const d=JSON.parse(raw);
     LANG=d.lang||'en';LVL=d.lvl||0;xp=d.xp||0;mix=d.mix||{hablado:0,escrito:0,gramatica:0};
     streak=d.streak||1;lastActive=d.lastActive||'';
+    ageGroup=d.ageGroup||'adolescente';purposes=d.purposes||[];studyTime=d.studyTime||20;
     return true;
   }catch(e){return false;}
 }
@@ -855,7 +872,7 @@ let lmSel=null;
 
 /* ═══ SETUP ═══ */
 function renderDots(active){
-  document.getElementById('dots').innerHTML=[0,1,2,3].map(i=>`<div class="dot-s${i===active?' on':''}" style="width:${i===active?'26px':'9px'}"></div>`).join('');
+  document.getElementById('dots').innerHTML=[0,1,2,3,4].map(i=>`<div class="dot-s${i===active?' on':''}" style="width:${i===active?'26px':'9px'}"></div>`).join('');
 }
 function goS(n){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
@@ -936,7 +953,55 @@ function renderLvls(){
     </div>`).join('');
 }
 function selLvl(i,el){LVL=i;document.querySelectorAll('.lvl-item').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');}
-function step3(){goS(4);renderModes();}
+let editingProfile=false;
+function editProfile(){
+  editingProfile=true;
+  document.getElementById('shell').style.display='none';
+  document.getElementById('setup').style.display='flex';
+  renderProfileStep();
+  goS(4);
+  document.getElementById('s4ContinueBtn').textContent='Guardar ✓';
+}
+function step3(){goS(4);renderProfileStep();document.getElementById('s4ContinueBtn').textContent='Continuar →';}
+function step4(){
+  if(editingProfile){
+    editingProfile=false;
+    saveProgress();
+    document.getElementById('setup').style.display='none';
+    document.getElementById('shell').style.display='block';
+    pg('home');
+    return;
+  }
+  goS(5);renderModes();
+}
+function selAge(a){
+  ageGroup=a;
+  document.querySelectorAll('#ageGrid .mcard').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('age-'+a).classList.add('sel');
+}
+const PURPOSE_OPTS=[
+  {k:'viajes',l:'✈️ Viajes'},{k:'trabajo',l:'💼 Trabajo'},{k:'universidad',l:'🎓 Universidad'},
+  {k:'icfes',l:'📝 ICFES'},{k:'toefl',l:'🌎 TOEFL'},{k:'conversacion',l:'💬 Conversación'},{k:'negocios',l:'📈 Negocios'}
+];
+const TIME_OPTS=[10,20,30,60];
+function renderProfileStep(){
+  document.getElementById('purposeGrid').innerHTML=PURPOSE_OPTS.map(p=>
+    `<div class="mcard${purposes.includes(p.k)?' sel':''}" id="pur-${p.k}" onclick="selPurpose('${p.k}')" style="text-align:center;padding:10px;"><div class="mt" style="font-size:12px;">${p.l}</div></div>`
+  ).join('');
+  document.getElementById('timeGrid').innerHTML=TIME_OPTS.map(t=>
+    `<div class="mcard${studyTime===t?' sel':''}" id="time-${t}" onclick="selTime(${t})" style="text-align:center;padding:10px;"><div class="mt">${t} min</div></div>`
+  ).join('');
+}
+function selPurpose(k){
+  const i=purposes.indexOf(k);
+  if(i>=0)purposes.splice(i,1);else purposes.push(k);
+  document.getElementById('pur-'+k).classList.toggle('sel');
+}
+function selTime(t){
+  studyTime=t;
+  document.querySelectorAll('#timeGrid .mcard').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('time-'+t).classList.add('sel');
+}
 const MODES=[{id:'chat',e:'💬',t:'Tutor IA',d:'Practica conversación real con feedback en español.'},{id:'vocab',e:'📚',t:'Vocabulario',d:'Aprende palabras clave con ejemplos reales.'},{id:'drill',e:'🎙️',t:'Pronunciación',d:'Lee en voz alta — IA evalúa tu pronunciación.'},{id:'grammar',e:'📝',t:'Gramática',d:'Reglas esenciales con ejercicios prácticos.'}];
 function renderModes(){
   document.getElementById('modeGrid').innerHTML=MODES.map(m=>`
@@ -1102,13 +1167,36 @@ async function send(){
   document.getElementById('sbtn').disabled=false;
 }
 
+/* Fragmentos componibles — agregar un age group o purpose nuevo = 1 línea nueva, no una reescritura */
+const AGE_TONE={
+  adolescente:'El estudiante es adolescente (13-17 años) — usa ejemplos relevantes a su edad (colegio, amigos, redes sociales, futuro académico). Tono cercano y motivador, nunca infantil ni condescendiente.',
+  adulto:'El estudiante es adulto — tono profesional pero cercano, ejemplos de vida adulta (trabajo, viajes, vida diaria).'
+};
+const PURPOSE_FOCUS={
+  viajes:'Prioriza vocabulario y situaciones de viaje: aeropuertos, hoteles, indicaciones, turismo.',
+  trabajo:'Prioriza vocabulario laboral general: reuniones, correos, conversaciones de oficina.',
+  universidad:'Prioriza vocabulario académico: ensayos, presentaciones, discutir lecturas.',
+  icfes:'Prioriza gramática y comprensión lectora al estilo del examen ICFES Saber 11.',
+  toefl:'Prioriza vocabulario académico formal y estructuras típicas de exámenes como TOEFL.',
+  conversacion:'Prioriza fluidez conversacional cotidiana, sin enfoque académico ni de negocios.',
+  negocios:'Prioriza vocabulario de negocios: reuniones, negociación, correos formales, presentaciones.'
+};
+function buildPersonalization(){
+  const parts=[];
+  if(AGE_TONE[ageGroup])parts.push(AGE_TONE[ageGroup]);
+  const focusList=(purposes||[]).map(p=>PURPOSE_FOCUS[p]).filter(Boolean);
+  if(focusList.length)parts.push(focusList.join(' '));
+  if(studyTime)parts.push(`El estudiante dispone de sesiones de ~${studyTime} minutos — ajusta la duración y cantidad de tus respuestas/ejercicios a ese tiempo.`);
+  return parts.join(' ');
+}
 function buildSys(){
   const l=LD[LANG];
   // Prompt compacto — menos tokens, misma calidad
   const base=`Tutor de ${l.name}. Estudiante hispanohablante, nivel: ${l.lvls[LVL]}.
 Si escribe EN ESPAÑOL: responde español, traduce a ${l.name}, enseña la frase, anímalo a intentarlo.
 Si escribe EN ${l.name.toUpperCase()}: actúa el escenario (máx 2 oraciones), luego feedback breve en español.
-Sé cálido y motivador. Respuestas CORTAS y directas.`;
+Sé cálido y motivador. Respuestas CORTAS y directas.
+${buildPersonalization()}`;
   const mods={
     conversation:`Escenario: "${scenario}". ${scenDesc}
 Responde en rol (2 oraciones). Luego:
